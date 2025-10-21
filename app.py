@@ -19,10 +19,10 @@ app.add_middleware(
 @app.get("/recommend")
 def recommend(title: str):
     movies = pd.read_csv("movies_trimmed.csv")
-    movies['genre'] = movies['genre'].fillna('').str.replace(' ', '').str.lower()
+    movies['genres'] = movies['genres'].fillna('').str.replace(' ', '').str.lower()
 
     tfidf = TfidfVectorizer(stop_words='english')
-    tfidf_matrix = tfidf.fit_transform(movies['genre'])
+    tfidf_matrix = tfidf.fit_transform(movies['genres'])
 
     cosine_sim = cosine_similarity(tfidf_matrix, tfidf_matrix)
 
